@@ -757,7 +757,7 @@ footer.main-footer.email-highlight{background:rgba(255,45,120,.07);border-top:1p
       <input class="email-input" type="email" placeholder="Your Email" id="emailInput2">
       <button class="btn-send" onclick="submitForm('emailInput2','connectForm2','successMsg2')">Get in touch →</button>
     </div>
-    <p id="successMsg2" style="display:none;margin-top:16px;color:var(--pink);font-family:'Beth Ellen',serif;font-size:1.1rem;">✨ Повідомлення надіслано!</p>
+    <p id="successMsg2" style="display:none;margin-top:16px;color:var(--pink);font-family:'Beth Ellen',serif;font-size:1.1rem;">Thanks for connect!</p>
   </section>
 
   <!-- Footer -->
@@ -936,7 +936,7 @@ async function submitForm(inputId, wrapperId, msgId) {
   const email = document.getElementById(inputId).value.trim();
   if (!email || !email.includes('@')) {
     document.getElementById(inputId).style.borderBottom = '1px solid #FF2D78';
-    document.getElementById(inputId).placeholder = 'Введи коректний email!';
+    document.getElementById(inputId).placeholder = 'email!';
     return;
   }
   try {
