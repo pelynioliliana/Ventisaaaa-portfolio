@@ -481,10 +481,11 @@ footer.main-footer.email-highlight{background:rgba(255,45,120,.07);border-top:1p
     </svg>
     <div class="section-label" style="margin-bottom:14px;">/ Connect</div>
     <h2 class="connect-title">Lets work <span class="pink">together!</span></h2>
-    <div class="email-input-wrapper">
-      <input class="email-input" type="email" placeholder="Your Email" id="emailInput">
-      <button class="btn-send" onclick="handleEmailHighlight()">Get in touch →</button>
+    <div class="email-input-wrapper" id="connectForm1">
+      <input class="email-input" type="email" placeholder="Your Email" id="emailInput1">
+      <button class="btn-send" onclick="submitForm('emailInput1','connectForm1','successMsg1')">Get in touch →</button>
     </div>
+    <p id="successMsg1" style="display:none;margin-top:16px;color:var(--pink);font-family:'Beth Ellen',serif;font-size:1.1rem;">✨ Повідомлення надіслано!</p>
   </section>
 
   <!-- Footer -->
@@ -752,10 +753,11 @@ footer.main-footer.email-highlight{background:rgba(255,45,120,.07);border-top:1p
   <section class="connect-section">
     <div class="section-label" style="margin-bottom:14px;">/ Connect</div>
     <h2 class="connect-title">Lets work <span class="pink">together!</span></h2>
-    <div class="email-input-wrapper">
-      <input class="email-input" type="email" placeholder="Your Email">
-      <button class="btn-send" onclick="handleEmailHighlight()">Get in touch →</button>
+    <div class="email-input-wrapper" id="connectForm2">
+      <input class="email-input" type="email" placeholder="Your Email" id="emailInput2">
+      <button class="btn-send" onclick="submitForm('emailInput2','connectForm2','successMsg2')">Get in touch →</button>
     </div>
+    <p id="successMsg2" style="display:none;margin-top:16px;color:var(--pink);font-family:'Beth Ellen',serif;font-size:1.1rem;">✨ Повідомлення надіслано!</p>
   </section>
 
   <!-- Footer -->
@@ -927,6 +929,31 @@ function animateSkillBars(){
   const src = 'data:image/jpeg;base64,' + b64;
   document.querySelectorAll('#heroPhoto,#aboutPhoto').forEach(img=>img.src=src);
 })();
+</script>
+
+<script>
+async function submitForm(inputId, wrapperId, msgId) {
+  const email = document.getElementById(inputId).value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById(inputId).style.borderBottom = '1px solid #FF2D78';
+    document.getElementById(inputId).placeholder = 'Введи коректний email!';
+    return;
+  }
+  try {
+    const res = await fetch('https://formspree.io/f/mykdoyen', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ email: email, message: 'New contact from portfolio: ' + email })
+    });
+    if (res.ok) {
+      document.getElementById(wrapperId).style.opacity = '0.4';
+      document.getElementById(msgId).style.display = 'block';
+      document.getElementById(inputId).value = '';
+    }
+  } catch(e) {
+    console.error(e);
+  }
+}
 </script>
 </body>
 </html>
